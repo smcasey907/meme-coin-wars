@@ -1,0 +1,73 @@
+.game-container {
+    display: block;
+    justify-content: start;
+    align-items: start;
+    height: 65vh;
+
+    .score {
+        font-size: 21px;
+        text-align: end;
+    }
+
+    .coin-listing {
+        border: 2px dashed #0F0;
+        width: fit-content;
+        float: inline-start;
+    }
+
+    .coin-ownership {
+        float: inline-end;
+    }
+
+    #clear {
+        clear:both
+    }
+
+    .news-ticker {
+        border-top: 2px dashed #0F0;
+        width: 100%;
+    }
+
+    .terminal-input {
+        input {
+            background-color: #000;
+            border: none;
+            color: #0F0;
+            caret-color: #0F0;
+            outline: none;
+            font-family: 'Silkscreen', sans-serif;
+            font-size: 16px;
+            font-weight: bold;
+        }
+    }
+
+    .coin-amount-display {
+        font-size: 24px;
+        text-align: center;
+    }
+
+    .input-buttons {
+        display: flex;
+        justify-content: space-between;
+        button {
+            text-align: center;
+            display: inline-block;
+            padding: 10px 20px;
+            font-size: 24px;
+            border: none;
+            background-color: #000;
+            color: #0F0;
+            font-family: 'Silkscreen', sans-serif;
+            border: 4px solid #0F0;
+            .blink {
+                animation: blink 2s linear infinite;
+            }
+        }
+        
+        @keyframes blink {
+            0% { opacity: 1; }
+            50% { opacity: 0.5; }
+            100% { opacity: 1; }
+        }
+    }
+}

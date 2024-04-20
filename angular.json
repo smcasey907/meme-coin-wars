@@ -94,6 +94,23 @@
             ],
             "scripts": []
           }
+        },
+        "deploy": {
+          "builder": "@angular/fire:deploy",
+          "options": {
+            "version": 2
+          },
+          "configurations": {
+            "production": {
+              "buildTarget": "meme-coin-wars:build:production",
+              "serveTarget": "meme-coin-wars:serve:production"
+            },
+            "development": {
+              "buildTarget": "meme-coin-wars:build:development",
+              "serveTarget": "meme-coin-wars:serve:development"
+            }
+          },
+          "defaultConfiguration": "production"
         }
       }
     }

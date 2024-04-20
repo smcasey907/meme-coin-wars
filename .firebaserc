@@ -1,0 +1,14 @@
+{
+  "projects": {
+    "default": "meme-coin-wars"
+  },
+  "targets": {
+    "meme-coin-wars": {
+      "hosting": {
+        "meme-coin-wars": [
+          "meme-coin-wars"
+        ]
+      }
+    }
+  }
+}

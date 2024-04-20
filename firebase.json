@@ -1,0 +1,23 @@
+{
+  "hosting": [
+    {
+      "public": "dist/meme-coin-wars/browser",
+      "ignore": [
+        "firebase.json",
+        "**/.*",
+        "**/node_modules/**"
+      ],
+      "rewrites": [
+        {
+          "source": "**",
+          "destination": "/index.html"
+        }
+      ]
+    },
+    {
+      "target": "meme-coin-wars",
+      "source": ".",
+      "frameworksBackend": {}
+    }
+  ]
+}

@@ -14,6 +14,7 @@ interface State {
 	// an array of objects that contains the array of investments for each day
 	marketRecord: Investment[][];
 	[key: string]: any; // Add index signature
+	totalScore: number;
 }
 
 @Injectable({
@@ -36,7 +37,8 @@ export class SubscriptionService {
 			tokens: [],
 			news: [],
 			gameData: [],
-			marketRecord: []
+			marketRecord: [],
+			totalScore: 0
 			// Initialize other state properties as needed
 		});
 	}
@@ -48,6 +50,12 @@ export class SubscriptionService {
 	updatePlayer(player: Player) {
 		const state = this._state$.getValue();
 		state.player = player;
+		this._state$.next(state);
+	}
+
+	updateTotalScore(totalScore: number) {
+		const state = this._state$.getValue();
+		state.totalScore = totalScore;
 		this._state$.next(state);
 	}
 
@@ -73,6 +81,7 @@ export class SubscriptionService {
 		state.player = player;
 		state.gameData = gameData;
 		state.marketRecord = [];
+		state.totalScore = 0;
 		this._state$.next(state);
 	}
 
@@ -106,7 +115,18 @@ export class SubscriptionService {
 				state.player.cash += cashSpent;
 			}
 		}
+		this.getNewTotalScore();
 		this._state$.next(state);
+	}
+
+	getNewTotalScore(): void {
+		const state = this._state$.getValue();
+		let runningTotal = 0
+		state.player.holdings.forEach((holding) => {
+			let coin = state.tokens.find((c) => c.name === holding.coin);
+			runningTotal += holding.amount * coin!.value;
+			state.totalScore = runningTotal + state.player.cash;
+		});
 	}
 
 	public volatilityCalculator(price: number): number {
@@ -180,7 +200,7 @@ export class SubscriptionService {
 			// get delta value
 			let delta = this.volatilityCalculator(coin.value);
 			// get motion data
-			let motion = this.generateBrownianMotion(delta, 12, 6);
+			let motion = this.generateBrownianMotion(delta, 12, 6, gameData.day + 1, coin.name);
 			// Roll d20 to determine motion
 			let roll = Math.floor(Math.random() * 20) + 1;
 			let motionIndex = 0;
@@ -255,22 +275,28 @@ export class SubscriptionService {
 	// So giving Delta a range of maybe -10 to 10 AND using a d20 to determine
 	// the motion could be a good way to randomize the growth of the coin value
 
-	generateBrownianMotion(delta: number, dt: number, n: number): number[] {
+	generateBrownianMotion(delta: number, dt: number, n: number, day: number, coinName: string): number[] {
+		const TOTALDAYS = 22;
 		let motion = [0];
 		for (let i = 0; i < n; i++) {
-		  let dx = Math.random();  // Random number between 0 and 1
-		  let x = motion[i];
-		  // Increase price with a smaller factor
-		  if (dx < 0.5) {
-			x += delta * 0.2 * dx; // Use a smaller delta for upward movement
-		  } else {
-			// Decrease price with a larger factor (effectively "negative volatility")
-			x -= delta * 1.2 * (dx - 0.5); // Use a larger delta for downward movement 
-		  }
-		  motion.push(x);
+			let dx = Math.random();  // Random number between 0 and 1
+			let x = motion[i];
+			// Increase price with a smaller factor
+			// if (dx < 0.5) {
+			// Boost specific coin in the last three days
+			if (day >= TOTALDAYS && coinName === 'GME') {
+				x += delta * 2 * dx; // Increase the upward movement factor
+			} else {
+				x += delta * 0.2 * dx; // Use a smaller delta for upward movement
+			}
+			// } else {
+			// // Decrease price with a larger factor (effectively "negative volatility")
+			// x -= delta * 1.2 * (dx - 0.5); // Use a larger delta for downward movement 
+			// }
+			motion.push(x);
 		}
 		return motion;
-	  }
+	}
 }
 
   // Add similar methods to update other state properties

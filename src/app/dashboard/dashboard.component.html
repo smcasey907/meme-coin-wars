@@ -30,114 +30,15 @@
 
     <!-- Phase 2: Daily Phase -->
     @if(gameData.phase == 2) {
-        <div class="daily-view">
-            <p>Day {{ day }}: January {{ day }}, 2020</p>
-            <div>
-                @for(coin of coins; track coin) {
-                    <div class="coin-listing">
-                        @if(coin.id != 4) {
-                            <p>&nbsp;&nbsp;{{ coin.name  }}:   ${{ coin.value | number: '1.0-2' }} || {{ coin.deltaPercentage | number: '1.0-2'}}&nbsp;&nbsp;</p>
-                        } @else {
-                            <p>&nbsp;&nbsp;{{ coin.name  }}:   ${{ coin.value | number: '1.0-6' }} || {{ coin.deltaPercentage | number: '1.0-2'}}&nbsp;&nbsp;</p>
-                        }
-                        
-                    </div>
-                    <div class="coin-ownership">
-                        @for(holding of player.holdings; track holding) {
-                            @if(holding.coin == coin.name) {
-                                <p>Coins owned: {{holding.amount | number: '1.0-2'}}   || Coin Value: ${{holding.value | number: '1.0-2'}} </p>
-                            }
-                        } 
-                    </div>
-                    <div id="clear"></div>
-                    <br />
-                }
-            </div>
-            @if(!buying && !selling) {
-                <div>
-                    @for(news of newsItems; track news) {
-                        <div class="news-ticker">
-                            <p>{{ news.text }}</p>
-                        </div>
-                        <br />
-                    }
-                </div>
-                <div class="game-prompt">
-                    <p>What would you like to do today? (HODL will advance to the next day)</p>
-                </div>
-                <div class="input-buttons">
-                    <button (click)="buy()">Buy</button>
-                    <button (click)="sell()">Sell</button>
-                    <button (click)="hodl()">HODL</button>
-                </div>
-            }
-            @if(buying) {
-                <div class="game-prompt">
-                    <p>{{dynamicText1}}</p>
-                </div>
-                @if(dynamicTracker == 1) {
-                    <div class="coin-amount-display">
-                        <h2>{{ incrementAmount | number: '1.0-2' }}</h2>
-                    </div>
-                }
-                <div class="input-buttons">
-                    @if (dynamicTracker == 0) {
-                        @for(coin of coins; track coin) {
-                            <button (click)="buyCoin(coin)">{{coin.name}}</button>
-                        }
-                    } @else {
-                            <button (click)="maxValue()">Max</button>
-                            <button (click)="incrementValue()">+</button>
-                            <button (click)="buyCoinAmount()">Buy</button>
-                            <button (click)="decrementValue()">-</button>
-                            <button (click)="resetValue()">Reset</button>
-                    }
-                </div>
+        <!-- day router -->
+        <div routerLink="day"></div>
 
-            }
-            @if(selling) {
-                <div class="game-promp">
-                    <p>{{dynamicText1}}</p>
-                </div>
-                @if(dynamicTracker == 1) {
-                    <div class="coin-amount-display">
-                        <h2>{{ incrementAmount | number: '1.0-2' }}</h2>
-                    </div>
-                }
-                <div class="input-buttons">
-                    @if (dynamicTracker == 0) {
-                        @for(coin of coins; track coin) {
-                            <button (click)="sellCoin(coin)">{{coin.name}}</button>
-                        }
-                    } @else {
-                            <button (click)="maxSaleValue()">Max</button>
-                            <button (click)="incrementSaleValue()">+</button>
-                            <button (click)="sellCoinAmount()">Sell</button>
-                            <button (click)="decrementValue()">-</button>
-                            <button (click)="resetValue()">Reset</button>
-                    }
-                </div>
-            }
-        </div>
+        <router-outlet />
     }
 
     <!-- Phase 3: End Game -->
     @if(gameData.phase == 3) {
-        <div>
-            <p>Game Over! Here's your final score:</p>
-            <div>
-                @for(holding of player.holdings; track holding) {
-                    <div class="coin-listing">
-                        <p>{{ holding.coin }}: {{ holding.amount | number: '1.0-2' }} || ${{ holding.value | number: '1.0-2' }}</p>
-                    </div>
-                    <div id="clear"></div>
-                    <br />
-                }
-            </div>
-            <p>Total Value: {{ totalScore | number: '1.0-2' }}</p>
-            <div class="input-buttons">
-                <button (click)="playAgain()"><span class="blink">Play Again</span></button>
-            </div>
-        </div>
+        <div routerLink="day"></div>
+        <router-outlet />
     }
 </div>

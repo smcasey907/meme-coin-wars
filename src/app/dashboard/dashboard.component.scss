@@ -9,36 +9,8 @@
         text-align: end;
     }
 
-    .coin-listing {
-        border: 2px dashed #0F0;
-        width: fit-content;
-        float: inline-start;
-    }
-
-    .coin-ownership {
-        float: inline-end;
-    }
-
     #clear {
         clear:both
-    }
-
-    .news-ticker {
-        border-top: 2px dashed #0F0;
-        width: 100%;
-    }
-
-    .terminal-input {
-        input {
-            background-color: #000;
-            border: none;
-            color: #0F0;
-            caret-color: #0F0;
-            outline: none;
-            font-family: 'Silkscreen', sans-serif;
-            font-size: 16px;
-            font-weight: bold;
-        }
     }
 
     .coin-amount-display {

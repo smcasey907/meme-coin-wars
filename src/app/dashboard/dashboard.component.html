@@ -9,11 +9,13 @@
     @if(gameData.phase == 1) {
         <div class="intro-view">
             <p>Welcome to the game! You have 22 days to amass as much value as possible with the $100 you have in your pocket.</p>
+            <p>Keep in mind that <span style='color: aqua'>$GME</span> is about to go off at some point!</p>
+            <p><i>Mind your FOMO!</i></p>
             <p>Here are your initial investment options:</p>
             <div>
                 @for(coin of coins; track coin) {
                     <div class="coin-listing">
-                        <p>&nbsp;&nbsp;Θ&nbsp;{{ coin.name }}:   ${{ coin.value }}&nbsp;&nbsp;</p>
+                        <p>&nbsp;&nbsp;Θ&nbsp;<span [ngStyle]="{'color': coin.name === '$GME' ? 'aqua' : 'inherit'}">{{ coin.name }}</span>:   ${{ coin.value }}&nbsp;&nbsp;</p>
                     </div>
                     <div id="clear"></div>
                     <br />

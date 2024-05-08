@@ -5,7 +5,7 @@ import { Player } from '../models/player';
 import { InvestmentService } from '../service/investment.service';
 import { NewsService } from '../service/news.service';
 import { SubscriptionService } from '../service/subscription.service';
-import { DecimalPipe } from '@angular/common';
+import { CommonModule, DecimalPipe } from '@angular/common';
 import { RouterLink, RouterLinkActive, RouterOutlet } from '@angular/router';
 
 @Component({
@@ -13,7 +13,7 @@ import { RouterLink, RouterLinkActive, RouterOutlet } from '@angular/router';
   selector: 'app-dashboard',
   templateUrl: './dashboard.component.html',
   styleUrl: './dashboard.component.scss',
-  imports: [ DecimalPipe, RouterOutlet, RouterLink, RouterLinkActive],
+  imports: [ DecimalPipe, RouterOutlet, CommonModule, RouterLink, RouterLinkActive],
   providers: [InvestmentService, NewsService]
 })
 export class DashboardComponent {

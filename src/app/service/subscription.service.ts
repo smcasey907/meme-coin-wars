@@ -161,6 +161,7 @@ export class SubscriptionService {
 		const player = state.player;
 		const gameData = state.gameData;
 		const marketRecord = state.marketRecord;
+		let totalScore = state.totalScore;
 
 		/*
 		generate fake market movement
@@ -189,7 +190,7 @@ export class SubscriptionService {
 					let impact = this.newsService.newsImpact(news.newsImpactId, coin.value);
 					//adjust the coin value
 					coin.value += coin.value * impact;
-					console.log(`News Impact: ${news.newsImpactId}, Coin: ${coin.name}, Impact: ${impact}, New Value: ${coin.value}`);
+					console.log(`EOD News Impact: ${news.newsImpactId}, Coin: ${coin.name}, Impact: ${impact}, New Value: ${coin.value}`);
 				}
 			}
 		}
@@ -232,13 +233,16 @@ export class SubscriptionService {
 					let impact = this.newsService.newsImpact(news.newsImpactId, coin.value);
 					//adjust the coin value
 					coin.value += coin.value * impact;
-					console.log(`News Impact: ${news.newsImpactId}, Coin: ${coin.name}, Impact: ${impact}, New Value: ${coin.value}`);
+					console.log(`SOD News Impact: ${news.newsImpactId}, Coin: ${coin.name}, Impact: ${impact}, New Value: ${coin.value}`);
 				}
 			}
 		}
 
 		// For each token, determine the total percentage change in value between the two days
 		// Adjust the player's token value accordingly
+		totalScore = 0;
+		// Add player cash on hand to total score
+		totalScore += player.cash;
 		for (let coin of coins) {
 			let recordLength = marketRecord.length;
 			let previousValue = (marketRecord[recordLength - 1] as Investment[]).find((c: Investment) => c.id == coin.id)?.value;
@@ -248,6 +252,8 @@ export class SubscriptionService {
 				let holding = player.holdings.find((h) => h.coin === coin.name);
 				if (holding) {
 					holding.value += holding.value * percentageChange;
+					// Add the value of the holding to the total score
+					totalScore += holding.value;
 				}
 			}
 		}
@@ -257,6 +263,7 @@ export class SubscriptionService {
 		this.save('player', player);
 		this.save('gameData', { ...gameData, day: gameData.day + 1 });
 		this.save('marketRecord', [...marketRecord, coins]);
+		this.save('totalScore', totalScore);
 	}
 
 	// delta: "drift" factor, determines the direction of the motion and speed

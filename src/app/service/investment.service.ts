@@ -7,8 +7,8 @@ import { Holdings } from '../models/player';
   providedIn: 'root'
 })
 export class InvestmentService {
-  coinNames: string[] = ['$FRNSWRTH', '$DOGSHT', '$DATASS', '$JNX', '$GME'];
-  coinValues: number[] = [10, 69, 77, 750, .01];
+  coinNames: string[] = ['$BTC', '$ETH', '$DOGE', '$SOL', '$GME']
+  coinValues: number[] = [1000, 300, .14, 150, .01];
 
   networkGasFee: number = 0.01;
 

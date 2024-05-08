@@ -38,6 +38,8 @@ export class DayComponent {
   dynamicTracker: number = 0;
   dynamicText: string = '';
   coinTracker: number = 0;
+
+  displayNewsFeedPage: boolean = false;
   
   constructor (
     private coinService: InvestmentService,
@@ -162,6 +164,13 @@ export class DayComponent {
     if (this.totalScore < 0) {
       this.endGame();
     }
+    if (this.day < 22 && this.totalScore > 0) {
+      this.displayNewsFeedPage = true;
+    }
+  }
+
+  continueToNextDay(): void {
+    this.displayNewsFeedPage = false;
   }
 
   endGame(): void {
@@ -175,5 +184,6 @@ export class DayComponent {
     this.day = 1;
     this.state.initializeGameState();
   }
+
 
 }

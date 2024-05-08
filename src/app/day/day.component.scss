@@ -1,5 +1,5 @@
 .coin-listing {
-    border: 2px dashed #0F0;
+    border: 2px dashed powderblue;
     width: fit-content;
     float: inline-start;
 }
@@ -13,12 +13,12 @@
 }
 
 .news-ticker {
-    border-top: 2px dashed #0F0;
+    border-top: 2px dashed powderblue;
     width: 100%;
 }
 
 .positive {
-    color: white;
+    color: #0F0;
 }
 
 .negative {
@@ -35,9 +35,9 @@
         font-size: 24px;
         border: none;
         background-color: #000;
-        color: #0F0;
-        font-family: 'Silkscreen', sans-serif;
-        border: 4px solid #0F0;
+        color: powderblue;
+        font-family: 'Orbitron', sans-serif;
+        border: 4px solid powderblue;
         .blink {
             animation: blink 2s linear infinite;
         }

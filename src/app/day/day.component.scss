@@ -28,6 +28,11 @@
 .input-buttons {
     display: flex;
     justify-content: space-between;
+
+    @media (max-width: 767px) {
+        gap: 10px;
+        flex-direction: column;
+    }
     button {
         text-align: center;
         display: inline-block;

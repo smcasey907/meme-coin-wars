@@ -4,18 +4,40 @@
             <p>Day {{ day }}: January {{ day }}, 2020</p>
             <div>
                 @for(coin of coins; track coin) {
-                    <div class="coin-listing">
+                    <!-- <div class="coin-listing">
                         @if(coin.id != 4) {
                             <p>&nbsp;&nbsp;{{ coin.name }}:   ${{ coin.value | number: '1.0-2' }} || <span [ngClass]="{'positive': coin.deltaPercentage >= 0, 'negative': coin.deltaPercentage < 0}">{{ coin.deltaPercentage | percent: '1.0-2'}}</span>&nbsp;&nbsp;</p>
                         } @else {
                             <p>&nbsp;&nbsp;<span style='color:aqua'>{{ coin.name  }}</span>:   ${{ coin.value | number: '1.0-6' }} || <span [ngClass]="{'positive': coin.deltaPercentage >= 0, 'negative': coin.deltaPercentage < 0}">{{ coin.deltaPercentage | percent: '1.0-2'}}</span>&nbsp;&nbsp;</p>
                         }
                         
+                    </div> -->
+                    <div class="coin-listing">
+                        @if(coin.id != 4) {
+                            <div class="coin-info">
+                                <p class="coin-name">{{ coin.name }}</p>
+                                <div class="coin-values">
+                                    <p>${{ coin.value | number: '1.0-2' }}</p>
+                                    <p><span [ngClass]="{'positive': coin.deltaPercentage >= 0, 'negative': coin.deltaPercentage < 0}">{{ coin.deltaPercentage | percent: '1.0-2'}}</span></p>
+                                </div>
+                            </div>
+                        } @else {
+                            <div class="coin-info">
+                                <p class="coin-name" style='color:aqua'>{{ coin.name }}</p>
+                                <div class="coin-values">
+                                    <p>${{ coin.value | number: '1.0-6' }}</p>
+                                    <p><span [ngClass]="{'positive': coin.deltaPercentage >= 0, 'negative': coin.deltaPercentage < 0}">{{ coin.deltaPercentage | percent: '1.0-2'}}</span></p>
+                                </div>
+                            </div>
+                        }
                     </div>
                     <div class="coin-ownership">
                         @for(holding of player.holdings; track holding) {
                             @if(holding.coin == coin.name) {
-                                <p>Coins owned: {{holding.amount | number: '1.0-2'}}   || Coin Value: ${{holding.value | number: '1.0-2'}} </p>
+                                <div class="coin-info">
+                                    <p>{{holding.amount | number: '1.0-2'}} {{holding.coin}}</p>
+                                    <p>${{holding.value | number: '1.0-2'}} </p>
+                                </div>
                             }
                         } 
                     </div>

@@ -1,11 +1,47 @@
+// .coin-listing {
+//     border: 2px dashed powderblue;
+//     width: fit-content;
+//     float: inline-start;
+// }
 .coin-listing {
     border: 2px dashed powderblue;
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
     width: fit-content;
     float: inline-start;
 }
 
+.coin-info {
+    display: flex;
+    justify-content: space-between;
+    align-items: end;
+    width: 100%;
+    padding: 0 1em;
+}
+
+.coin-name {
+    flex: 1;
+    padding-inline-end: 1em;
+}
+
+.coin-values {
+    text-align: end;
+    p {
+        margin: 0;
+    }
+}
+
 .coin-ownership {
     float: inline-end;
+    padding-inline-end: 1.5em;
+
+    .coin-info {
+        flex-direction: column;
+        p {
+            margin: 0;
+        }
+    }
 }
 
 #clear {
@@ -15,6 +51,7 @@
 .news-ticker {
     border-top: 2px dashed powderblue;
     width: 100%;
+    color: orange;
 }
 
 .positive {

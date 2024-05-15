@@ -1,3 +1,6 @@
+@if(gameData.phase == 1) {
+    <h1>$GME WARS</h1>
+}
 <div class="game-container">
     @if(gameData.phase > 1) {
         <div class="score">Total Value: {{ totalScore | number: '1.0-2' }}</div>
